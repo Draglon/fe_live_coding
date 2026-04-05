@@ -70,7 +70,7 @@ const Task_1 = () => {
           <button
             type="button"
             onClick={newPage(page + 1)}
-            disabled={usersFromNextPage.length === 0 || users.length < limit}
+            disabled={usersFromNextPage.length === 0}
           >
             {`>`}
           </button>
