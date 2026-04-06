@@ -1,5 +1,5 @@
 "use client";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
 type UserProps = {
   id: string;
@@ -19,7 +19,10 @@ const Task_1 = () => {
   };
 
   useEffect(() => {
-    const fetchUsers = (currentPage: number, setData: any) => {
+    const fetchUsers = (
+      currentPage: number,
+      setData: React.Dispatch<React.SetStateAction<UserProps[]>>
+    ) => {
       fetch(`${baseUrl}?_page=${currentPage}&_limit=${limit}`)
         .then((response) => {
           if (!response.ok) throw new Error("Network response was not ok");
