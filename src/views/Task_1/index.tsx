@@ -19,23 +19,18 @@ const Task_1 = () => {
   };
 
   useEffect(() => {
-    // current page
-    fetch(`${baseUrl}?_page=${page}&_limit=${limit}`)
-      .then((response) => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json();
-      })
-      .then((data) => setUsers(data))
-      .catch((error) => console.error("Fetch error:", error));
+    const fetchUsers = (currentPage: number, setData: any) => {
+      fetch(`${baseUrl}?_page=${currentPage}&_limit=${limit}`)
+        .then((response) => {
+          if (!response.ok) throw new Error("Network response was not ok");
+          return response.json();
+        })
+        .then((data) => setData(data))
+        .catch((error) => console.error("Fetch error:", error));
+    };
 
-    // next page
-    fetch(`${baseUrl}?_page=${page + 1}&_limit=${limit}`)
-      .then((response) => {
-        if (!response.ok) throw new Error("Network response was not ok");
-        return response.json();
-      })
-      .then((data) => setUsersFromNextPage(data))
-      .catch((error) => console.error("Fetch error:", error));
+    fetchUsers(page, setUsers); // current page
+    fetchUsers(page + 1, setUsersFromNextPage); // next page
   }, [page]);
 
   return (
